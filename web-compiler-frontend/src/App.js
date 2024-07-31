@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import Navbar from './components/Navbar';
 import CodeInput from './components/CodeInput';
-import CompileButton from './components/CompileButton';
 import OutputDisplay from './components/OutputDisplay';
 import { compileCode } from './services/compileService';
 
@@ -20,12 +20,9 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar onCompile={handleSubmit} />
       <header className="App-header">
-        <h1>Web C++ Compiler</h1>
         <CodeInput code={code} setCode={setCode} />
-        <div style={{ marginTop: '10px' }}>
-          <CompileButton onSubmit={handleSubmit} />
-        </div>
         <OutputDisplay output={output} />
       </header>
     </div>

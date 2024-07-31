@@ -1,13 +1,20 @@
 import React from 'react';
+import { Editor } from '@monaco-editor/react';
 
-const CodeInput = ({ code, setCode }) => (
-  <textarea
-    value={code}
-    onChange={(e) => setCode(e.target.value)}
-    placeholder="Enter your C++ code here"
-    rows="10"
-    cols="50"
-  />
-);
+function CodeInput({ code, setCode }) {
+  const handleChange = (value) => {
+    setCode(value || '');
+  };
+
+  return (
+    <Editor
+      height="500px"
+      defaultLanguage="cpp"
+      value={code}
+      onChange={handleChange}
+      theme="vs-dark"
+    />
+  );
+}
 
 export default CodeInput;
