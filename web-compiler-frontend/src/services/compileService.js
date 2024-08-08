@@ -1,7 +1,6 @@
-// src/services/compileService.js
 export const compileCode = async (code) => {
   try {
-    const response = await fetch('http://localhost:8080/api', {
+    const response = await fetch('http://message-publisher:3001/compile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
