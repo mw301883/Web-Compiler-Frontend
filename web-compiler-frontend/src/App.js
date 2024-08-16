@@ -4,28 +4,37 @@ import Navbar from './components/Navbar';
 import CodeInput from './components/CodeInput';
 import OutputDisplay from './components/OutputDisplay';
 import { compileCode } from './services/compileService';
+import Loader from './components/Loader';
 
 function App() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
-    try {
-      const result = await compileCode(code);
-      setOutput(result.output);
-    } catch (error) {
-      setOutput('An error occurred during compilation - unable to connect with external compiler service.');
-    }
+      if (code.trim() === '') {
+        setOutput('Please enter some code to compile.');
+        return;
+      }
+      setIsLoading(true);
+      try {
+        const result = await compileCode(code);
+        setOutput(result.output);
+      } catch (error) {
+        setOutput(`An error occurred during compilation: ${error.message}`);
+      } finally {
+        setIsLoading(false);
+      }
   };
 
   return (
-    <div className="App">
-      <Navbar onCompile={handleSubmit} />
-      <header className="App-header">
-        <CodeInput code={code} setCode={setCode} />
-        <OutputDisplay output={output} />
-      </header>
-    </div>
+      <div className="App">
+        <Navbar onCompile={handleSubmit} />
+        <header className="App-header">
+          <CodeInput code={code} setCode={setCode} />
+          {isLoading ? <Loader /> : <OutputDisplay output={output} />}
+        </header>
+      </div>
   );
 }
 
