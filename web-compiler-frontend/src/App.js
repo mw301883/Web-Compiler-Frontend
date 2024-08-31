@@ -5,6 +5,7 @@ import CodeInput from './components/CodeInput';
 import OutputDisplay from './components/OutputDisplay';
 import { compileCode } from './services/compileService';
 import Loader from './components/Loader';
+import { Helmet } from 'react-helmet';
 
 function App() {
   const [code, setCode] = useState('');
@@ -29,6 +30,10 @@ function App() {
 
   return (
       <div className="App">
+        <Helmet>
+            <title>Web Compiler</title>
+            <link rel="icon" href="/favicon.ico" />
+        </Helmet>
         <Navbar onCompile={handleSubmit} />
         <header className="App-header">
           <CodeInput code={code} setCode={setCode} />
